@@ -58,3 +58,63 @@ document.addEventListener("DOMContentLoaded", () => {
     observer.observe(el);
   });
 });
+
+// Wait for the page to load before running script
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.querySelector("form");
+  const fname = document.querySelector("input[name='fname']");
+  const sname = document.querySelector("input[name='sname']");
+  const email = document.querySelector("input[name='email']");
+  const message = document.querySelector("textarea[name='message']");
+
+  // Create an area for messages
+  const feedback = document.createElement("div");
+  feedback.style.marginTop = "10px";
+  form.appendChild(feedback);
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault(); // Prevent page reload
+
+    // Reset feedback
+    feedback.innerHTML = "";
+    feedback.style.color = "red";
+
+    // Validation
+    if (fname.value.trim() === "") {
+      feedback.textContent = "⚠ Please enter your first name.";
+      fname.focus();
+      return;
+    }
+    if (sname.value.trim() === "") {
+      feedback.textContent = "⚠ Please enter your second name.";
+      sname.focus();
+      return;
+    }
+    if (email.value.trim() === "") {
+      feedback.textContent = "⚠ Please enter your email.";
+      email.focus();
+      return;
+    }
+    // Simple email format check
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email.value)) {
+      feedback.textContent = "⚠ Please enter a valid email address.";
+      email.focus();
+      return;
+    }
+    if (message.value.trim() === "") {
+      feedback.textContent = "⚠ Please leave us a message.";
+      message.focus();
+      return;
+    }
+
+    // If everything is valid
+    feedback.style.color = "green";
+    feedback.textContent = "✅ Thank you! Your message has been submitted successfully.";
+
+    // Reset form after a delay
+    setTimeout(() => {
+      form.reset();
+    }, 2000);
+  });
+});
