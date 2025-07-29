@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
     background-color: #0f172a;
     color: white;
     border: none;
-    padding: 12px 16px;
+    padding: 5px 10px;
     border-radius: 50%;
     font-size: 18px;
     cursor: pointer;
